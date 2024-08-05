@@ -1,0 +1,6 @@
+
+
+$2y$13$... : C'est le format standard du hachage bcrypt pour les mots de passe.
+Alice2024!, Bob2024!, Carol2024! : Ce sont les mots de passe en clair que vous avez utilisés pour générer les mots de passe hashés.
+
+pem pass phrase : Azerty1!
