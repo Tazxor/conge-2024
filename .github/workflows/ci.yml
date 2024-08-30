@@ -37,8 +37,6 @@ jobs:
     - name: Install dependencies
       run: composer install --no-progress --no-suggest --prefer-dist
 
-    - name: Create database schema
-      run: php bin/console doctrine:schema:create --env=test
 
     - name: Run unit tests
       run: php bin/phpunit --env=test
