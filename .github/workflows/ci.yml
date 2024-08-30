@@ -23,5 +23,8 @@ jobs:
     - name: Install Composer dependencies
       run: composer install --no-progress --no-suggest --prefer-dist
 
+    - name: List files in the root directory
+      run: ls -la
+
     - name: Run PHPUnit tests
-      run: vendor/bin/phpunit --configuration phpunit.xml
+      run: vendor/bin/phpunit --configuration phpunit.xml.dist
