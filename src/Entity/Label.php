@@ -72,4 +72,9 @@ class Label
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->status; // ou toute autre propriété que vous souhaitez utiliser comme chaîne de caractères
+    }
 }

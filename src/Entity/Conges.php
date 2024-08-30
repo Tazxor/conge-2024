@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\CongesRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: CongesRepository::class)]
 class Conges
@@ -118,4 +120,28 @@ class Conges
 
         return $this;
     }
+
+
+
+    // Autres propriétés...
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateDates(ExecutionContextInterface $context): void
+    {
+        if ($this->date_fin_conge < $this->date_debut_conge) {
+            $context->buildViolation('La date de fin ne peut pas être avant la date de début.')
+                ->atPath('dateFin')
+                ->addViolation();
+        }
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('Congé #%d: %s to %s', $this->getId(), $this->getDateDebutConge()->format('Y-m-d'), $this->getDateFinConge()->format('Y-m-d'));
+    }
+    
+
+
 }

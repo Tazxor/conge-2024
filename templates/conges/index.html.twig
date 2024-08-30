@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conges index{% endblock %}
+
+{% block body %}
+    <h1>Conges index</h1>
+    <button><a href="/logout">Logout</a></button>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+<button><a href="/user">UTILISATEUR</a></button>
+<button><a href="/commentaire">tous les messages</a></button>
+                    {% endif %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date début congé</th>
+                <th>Date fin congé</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Utilisateur</th>
+                {% endif %}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for conge in conges %}
+            <tr>
+                <td>{{ conge.id }}</td>
+                <td>{{ conge.dateDebutConge ? conge.dateDebutConge|date('Y-m-d') : '' }}</td>
+                <td>{{ conge.dateFinConge ? conge.dateFinConge|date('Y-m-d') : '' }}</td>
+                <td>{{ conge.label}}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>{{ conge.user.email }}</td>
+                    <td>{{ conge.user.prenom }}</td>
+                    <td>{{ conge.user.nom }}</td>
+
+                   <td>
+                        <form action="{{ path('app_conges_update_label', {'id': conge.id}) }}" method="post">
+                            <select name="label">
+                                {% for label in labels %}
+                                    <option value="{{ label.id }}" {% if conge.label.id == label.id %}selected{% endif %}>{{ label.status }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </td>
+
+                {% endif %}
+                <td>
+                    <a href="{{ path('app_conges_show', {'id': conge.id}) }}">show</a>
+                    <a href="{{ path('app_conges_edit', {'id': conge.id}) }}">voir les messages  et edité le conge</a>
+
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                        <form action="{{ path('app_conges_delete', {'id': conge.id}) }}" method="post" style="display:inline;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conge.id) }}">
+                                        <button type="submit" class="btn btn-danger">delete</button>
+                                        </form>
+                                        {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="{{ is_granted('ROLE_ADMIN') ? 5 : 4 }}">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_conges_new') }}">Create new</a>
+{% endblock %}

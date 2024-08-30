@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaire index{% endblock %}
+
+{% block body %}
+    <h1>Vos Messages</h1>
+    <button><a href="/">CONGES</a></button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ReponseUser</th>
+                <th>ReponseAdmin</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Email</th>
+                    <th>Prenom</th>
+                    <th>Nom</th>
+                {% endif %}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commentaire in commentaires %}
+            <tr>
+                <td>{{ commentaire.reponseUser }}</td>
+                <td>{{ commentaire.reponseAdmin }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    {# Vérifier si le commentaire a un conge et si le conge a un user avant d'accéder aux propriétés du user #}
+                    {% if commentaire.conge is not null and commentaire.conge.user is not null %}
+                        <td>{{ commentaire.conge.user.email }}</td>
+                        <td>{{ commentaire.conge.user.prenom }}</td>
+                        <td>{{ commentaire.conge.user.nom }}</td>
+                    {% else %}
+                        <td colspan="3">Utilisateur non spécifié</td>
+                    {% endif %}
+                {% endif %}
+                <td>
+                    <a href="{{ path('app_commentaire_show', {'id': commentaire.id}) }}">show</a>
+                    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">repondre au dernier message</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

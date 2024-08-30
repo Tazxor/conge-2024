@@ -1,0 +1,33 @@
+/* public/css/style.css */
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, sans-serif;
+
+    color: #333;
+    margin: 0;
+    padding: 0;
+    /* connection  */
+
+
+
+background: #F5FEF1;
+
+}
+
+h1, h2, h3 {    
+    color:black;
+}
+
+a {
+    color: #008cba;
+    text-decoration: none;
+}
+
+
+
+
+
+a:hover {
+    text-decoration: underline;
+}
+
+
