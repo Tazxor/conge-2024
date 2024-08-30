@@ -1,0 +1,41 @@
+# Réécriture des URL pour un projet Symfony
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si le fichier ou le répertoire existe, pas besoin de réécrire
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Rediriger toutes les requêtes vers l'index.php de Symfony
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Bloquer l'accès à certains fichiers sensibles
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files composer.json>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protéger le fichier .htaccess lui-même
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Ajouter une protection contre XSS et d'autres attaques
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "DENY"
+
+# Ajouter la prise en charge de la compression gzip
+<IfModule mod_deflate.c>
+    <FilesMatch "\.(js|css|html|svg|txt)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
+</IfModule>
