@@ -3,8 +3,7 @@ pipeline {
 
     stages {
         stage('Clone') {
-            steps {
-		# Ici mettre le code pour le clone de votre projet                
+            steps {              
 		git branch: 'main', url: 'https://github.com/Tazxor/conge-2024.git'
             }
         }
@@ -18,6 +17,7 @@ pipeline {
                       mv composer.phar /usr/local/bin/composer
 		              composer update
                       composer install
+                      rm composer.phar
                 '''
             }
         }
