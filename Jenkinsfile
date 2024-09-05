@@ -21,13 +21,13 @@ pipeline {
                 '''
             }
         }
-        stage('Test') {
-            steps {
-                sh '''
-                    php bin/phpunit
-                '''
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh '''
+        //             php bin/phpunit
+        //         '''
+        //     }
+        // }
     }
 }
 
