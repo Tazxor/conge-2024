@@ -14,11 +14,11 @@ pipeline {
                 // Exécute SonarQube pour l'analyse de la qualité du code
                 sh '''
                 # Ajoute sonarqube_project et sonarqube_token à la configuration de pipeline de Jenkins
-               sonar-scanner \
+              sonar-scanner \
                 -Dsonar.projectKey=conge_taylan \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=http://192.168.1.24:9000 \
-                -Dsonar.token=sqp_94eda49c8d88a6cfababd7bb2baa4b6298f6403c
+                -Dsonar.token=sqp_252778c443ac4f2d03549c7a7c208c3592623529
                 '''
             }
         }
