@@ -1,7 +1,7 @@
 pipeline {
     agent any  // Utilise n'importe quel agent disponible
 
-    stages {
+    stages { 
         stage('Clone') {
             steps {
                 // Clone le dépôt Git de la branche 'main'
